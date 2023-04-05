@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import {
-    getAuth
+    createUserWithEmailAndPassword,
+    getAuth,
+    signInWithEmailAndPassword
 } from 'firebase/auth';
 import {
     getDatabase
@@ -31,7 +33,9 @@ class Firebase {
     async doCreateUserWithEmailAndPassword(email, password) {
         try {
            //implemente aqui a função para criar um usuário
-           throw new Error("Função indisponível") //remova essa linha
+
+           this.credentials = await createUserWithEmailAndPassword(this.auth, email, password);
+           console.log(this.credentials.user.uid);
         } catch (error) {
             console.error(error.message)
             throw error;
@@ -45,8 +49,17 @@ class Firebase {
             ao atributo this.isLogged e as credenciais ao atributo this.credentials
             deverá retornar a propriedade user do atributo this.credentials.user
             */
+            
+            // console.log({"token":this.auth.currentUser?.acessToken});
+            this.credentials = await signInWithEmailAndPassword(this.auth, email, password);
+            // console.log({"token":this.auth.currentUser?.acessToken});
+            // console.log({"uid":this.auth.currentUser.uid});
+
+            this.isLogged = true;
+            
+            return this.credentials.user
            //implemente aqui função logar o usuario
-           throw new Error("Função Indisponível!!") //remova essa linha
+
         } catch (error) {
             console.error(error.message)
             throw error;
