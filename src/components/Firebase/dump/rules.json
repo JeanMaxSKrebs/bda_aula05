@@ -1,0 +1,13 @@
+{
+    "rules": {
+      ".read": true,
+      "users": {
+           "$uid": {
+             ".write": "$uid === auth.uid"
+                   }
+      },
+      "produtos": {
+            ".write": "auth != null && root.child('users').child(auth.uid).child('admin').val() == true"
+      }
+    }   
+  }

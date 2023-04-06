@@ -44,6 +44,7 @@ class Firebase {
 
     async doSignInWithEmailAndPassword(email, password) {
         try {
+            console.log("dosignin");
             /**
             Quando o usuário estiver logado atribua o valor TRUE
             ao atributo this.isLogged e as credenciais ao atributo this.credentials
@@ -66,8 +67,19 @@ class Firebase {
         }
     }
 
-    doSignOut = () => {
-    };
+    async doSignOut() {
+        try {
+            await this.auth.signOut();
+            
+            this.credentials = null;
+            this.isLogged = false;
+            
+        } catch (error) {
+            console.error(error.message);
+            throw error;
+        }
+    }
+    
 }
 
 export default Firebase;
